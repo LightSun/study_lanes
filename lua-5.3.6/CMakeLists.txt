@@ -1,0 +1,66 @@
+cmake_minimum_required(VERSION 3.5)
+
+project(luaPro LANGUAGES C CXX)
+
+# msvc: no support c99 since. vs2013. 2015
+IF(MSVC)
+SET(FLAGS "/0x -DLUA_COMPAT_5_2")
+ELSE(MSVC)
+#-O2 -std=c99
+SET(FLAGS "-fPIC -DLUA_COMPAT_5_2")
+ENDIF(MSVC)
+set(CMAKE_C_FLAGS ${FLAGS})
+set(CMAKE_C_FLAGS_DEBUG ${FLAGS})
+set(CMAKE_C_FLAGS_RELEASE ${FLAGS})
+
+INCLUDE_DIRECTORIES(src)
+add_library(lua53
+    SHARED
+    src/lapi.c
+    src/lauxlib.c
+    src/lbaselib.c
+    src/lbitlib.c
+    src/lcode.c
+    src/lcorolib.c
+    src/lctype.c
+
+    src/ldblib.c
+    src/ldebug.c
+    src/ldo.c
+    src/ldebug.c
+    src/ldump.c
+
+    src/lfunc.c
+    src/linit.c
+    src/liolib.c
+    src/lmathlib.c
+    src/lmem.c
+    src/loadlib.c
+    src/lobject.c
+    src/lopcodes.c
+    src/loslib.c
+    src/llex.c
+    src/lparser.c
+
+    src/lstring.c
+    src/lstrlib.c
+    src/ltable.c
+    src/lstrlib.c
+    src/ltablib.c
+
+    src/lstate.c
+    src/ltm.c
+    src/lgc.c
+   # src/lua.c
+    src/lundump.c
+    src/lutf8lib.c
+    src/lvm.c
+    src/lzio.c
+
+    src/lua_internal.h
+    src/lua_internal.c
+    )
+SET_TARGET_PROPERTIES(lua53 PROPERTIES COMPILE_FLAGS "-fPIC")
+
+
+
